@@ -7,7 +7,7 @@ using System.Web;
 
 namespace E_Mall.Database
 {
-    public class Database
+    public abstract class Database<T>
     {
         /// <summary>
         /// Girilen Sorguya Uygun olarak SqlDataReader nesnesi oluşturur
@@ -50,6 +50,16 @@ namespace E_Mall.Database
         {
             return (int)getCommand(sorgu).ExecuteNonQuery();
         }
+
+        public abstract List<T> GetAll();
+
+        public abstract void Insert(T item);
+
+        public abstract void Delete(int ID);
+
+        public abstract T GetForID(int ID);
+
+        public abstract List<T> GetForAdi(string value);
 
     }
 }
