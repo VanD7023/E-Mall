@@ -133,9 +133,11 @@
     <Compile Include="Controllers\KategoriController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\KategoriDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\Urun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -215,6 +217,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Urun\UrunYonetim.cshtml" />
     <Content Include="Views\Urun\UrunEkle.cshtml" />
+    <Content Include="Views\Kategori\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
