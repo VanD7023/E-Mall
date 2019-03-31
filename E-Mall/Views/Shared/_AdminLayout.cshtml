@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ASP.NET Uygulamam</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Katalog
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href=@Url.Action("UrunYonetim","Urun")>Ürün Yönetimi</a>
+                            <a class="dropdown-item" href="#">Ürün Özellikleri</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Kategoriler</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Satış
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Ürün Yönetimi</a>
+                            <a class="dropdown-item" href="#">Ürün Özellikleri</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Kategoriler</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Müşteriler
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Ürün Yönetimi</a>
+                            <a class="dropdown-item" href="#">Ürün Özellikleri</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Kategoriler</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            İndirim
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Ürün Yönetimi</a>
+                            <a class="dropdown-item" href="#">Ürün Özellikleri</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Kategoriler</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rapor
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Ürün Yönetimi</a>
+                            <a class="dropdown-item" href="#">Ürün Özellikleri</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Kategoriler</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline">
+                <label title="Kullanıcı Adı"></label>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Çıkış</button>
+            </form>
+        </nav>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Uygulamam</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
