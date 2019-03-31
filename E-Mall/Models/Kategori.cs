@@ -13,5 +13,6 @@ namespace E_Mall.Models
         public string Aciklama { set; get; }
         public int UstID { set; get; }
         public bool Sil { set; get; }
+        public Resim Resim { set; get; }
     }
 }

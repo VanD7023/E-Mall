@@ -13,7 +13,9 @@ namespace E_Mall
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
+            bundles.Add(new ScriptBundle("~/Layout/js").Include(
+                        "~/app-assets/JS/sweetalert.min.js"
+             ));
             // Geliştirme yapmak ve öğrenmek için Modernizr'ın geliştirme sürümünü kullanın. Daha sonra,
             // üretim için hazır. https://modernizr.com adresinde derleme aracını kullanarak yalnızca ihtiyacınız olan testleri seçin.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
