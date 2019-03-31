@@ -19,7 +19,7 @@ namespace E_Mall.Database
 
         public override void Insert(Kategori item)
         {
-            string sorgu = string.Format("insert into {8}({0},{1},{2},{3}) values('{4}','{5}',{6},{7})", _Adi, _Aciklama, _UstID, _ResimID, item.Adi, item.Aciklama, 1, 1, _Table);
+            string sorgu = string.Format("insert into {8}({0},{1},{2},{3}) values('{4}','{5}',{6},{7})", _Adi, _Aciklama, _UstID, _ResimID, item.Adi, item.Aciklama, 1, item.ResimID, _Table);
             InsertCommand(sorgu);
         }
 
@@ -63,6 +63,7 @@ namespace E_Mall.Database
                 Sil = false
             };
             reader.Close();
+            item.Resim = GetResim(item.ResimID);
             return item;
         }
 
@@ -84,6 +85,9 @@ namespace E_Mall.Database
             reader.Close();
             return items;
         }
-
+        public Resim GetResim(int ResimID)
+        {
+            return new ResimDatabase().GetForID(ResimID);
+        }
     }
 }

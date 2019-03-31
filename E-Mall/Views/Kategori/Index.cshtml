@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <form id="Arama-Form" action="#" method="#">
+                            <form id="Arama-Form" action="Arama" method="get">
                                 @Html.TextBox("aranan", null, new { @class = "form-control", @placeholder = "Aranan", style = "display:inline-block" })
                                 <button class="btn btn-success">Arama</button>
                             </form>
@@ -20,7 +20,7 @@
                         <div class="col-6">
                             <div style="float:right">
                                 <a class="btn btn-outline-info" href=@Url.Action("Index","Kategori") role="button">Yenile</a>
-                                <a class="btn btn-outline-info" href=# role="button">Ekle</a>
+                                <a class="btn btn-outline-info" href=@Url.Action("Olustur","Kategori") role="button">Ekle</a>
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                                         <td>@item.Adi</td>
                                         <td>2</td>
                                         <td>3</td>
-                                        <td>  <a class="btn btn-outline-secondary" href=# role="button">Düzenle</a></td>
-                                        <td>  <a class="btn btn-outline-danger" href="#" role="button">Sil</a></td>
+                                        <td>  <a class="btn btn-outline-secondary" href=@Url.Action("Guncele","Kategori",new {ID =item.ID }) role="button">Düzenle</a></td>
+                                        <td>  <a class="btn btn-outline-danger" href="#" onclick="deleteuser('@item.ID')" role="button">Sil</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -56,3 +56,36 @@
         </div>
     </div>
 </div>
+<script>
+    function deleteuser(kategoriID) {
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu işlem geri alınamaz!",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "Hayır, iptal!",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: false,
+                },
+                confirm: {
+                    text: "Evet, sil!",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: false,
+                    showCancelButton: true
+                }
+            }
+        })
+            .then((isConfirm) => {
+                if (isConfirm) {
+                    window.location.href = "/Kategori/Sil?id=" + kategoriID
+                } else {
+                    swal("İptal", "Veri güvende", "info");
+                }
+            });
+    }
+</script>
