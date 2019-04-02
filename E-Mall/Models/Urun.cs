@@ -8,7 +8,7 @@ namespace E_Mall.Models
     public class Urun
     {
         public int ID { set; get; }
-        public int Adi { set; get; }
+        public string Adi { set; get; }
         public string Aciklama { set; get; }
         public string Barkod { set; get; }
         public DateTime BaslangicTarih { set; get; }
