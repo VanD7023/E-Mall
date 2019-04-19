@@ -7,6 +7,7 @@
     <title>@ViewBag.Title - ASP.NET Uygulamam</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Layout/js")
 </head>
 <body>
     <div class="container body-content">
@@ -21,7 +22,7 @@
                             <a class="dropdown-item" href=@Url.Action("UrunYonetim","Urun")>Ürün Yönetimi</a>
                             <a class="dropdown-item" href="#">Ürün Özellikleri</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Kategoriler</a>
+                            <a class="dropdown-item" href=@Url.Action("Index","Kategori")>Kategoriler</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown active">
