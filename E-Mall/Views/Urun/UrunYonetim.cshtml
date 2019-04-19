@@ -1,4 +1,5 @@
-﻿
+﻿@using E_Mall.Models;
+@model List<Urun>
 @{
     ViewBag.Title = "UrunYonetim";
 }
@@ -8,13 +9,15 @@
         <h4> ÜRÜN YÖNETİMİ</h4>
     </div>
     <div class="col-xl-6">
-        <input style="display: inline-block" placeholder="Arama" class="form-control" />
-        <a class="btn btn-outline-secondary" href="#" role="button">Arama</a>
+        <form id="Arama-Form" action="Arama" method="get">
+            @Html.TextBox("aranan", null, new { @class = "form-control", @placeholder = "Aranan", style = "display:inline-block" })
+            <button class="btn btn-success">Arama</button>
+        </form>
     </div>
     <div class="col-xl-6">
         <p align="right">
             <a class="btn btn-outline-info" href=@Url.Action("UrunEkle","Urun") role="button">Ürün Ekle</a>
-            <a class="btn btn-outline-info" href="#" role="button">Yenile</a>
+            <a class="btn btn-outline-info" href=@Url.Action("UrunYonetim","Urun") role="button">Yenile</a>
         </p>
     </div>
     <div class="col-xl-12 col-lg-12 col-md-12 mb-1" align="center">
@@ -25,29 +28,56 @@
                     <th>Ürün Adı</th>
                     <th>SKU</th>
                     <th>Fiyat</th>
-                    <th>Stok</th>
                     <th>Düzenle</th>
                     <th>Sil</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach (Urun item in Model)
+                {
                 <tr>
-                    <td>Resim</td>
-                    <td>Ürün Adı</td>
-                    <td>SKU</td>
-                    <td>Fiyat</td>
-                    <td>Stok</td>
-                    <td><a class="btn btn-outline-info" href="#" role="button">Düzenle</a></td>
-                    <td><a class="btn btn-outline-info" href="#" role="button">Sil</a></td>
+                    <td>@item.Adi</td>
+                    <td>@item.Adi</td>
+                    <td>@item.Barkod</td>
+                    <td>@item.Fiyat</td>
+                    <td><a class="btn btn-outline-info" href=@Url.Action("Guncelle","Urun", new { ID = item.ID }) role="button">Düzenle</a></td>
+                    <td><a class="btn btn-outline-info" href="#" onclick="deleteuser('@item.ID')" role="button">Sil</a></td>
                 </tr>
+                }
             </tbody>
-        </table>
+            </table>
     </div>
 </div>
-
 <script>
-    function btn_urunEkle() {
-        document.getElementById("demo").style.color = "red";
+    function deleteuser(itemID) {
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu işlem geri alınamaz!",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: "Hayır, iptal!",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: false,
+                },
+                confirm: {
+                    text: "Evet, sil!",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: false,
+                    showCancelButton: true
+                }
+            }
+        })
+            .then((isConfirm) => {
+                if (isConfirm) {
+                    window.location.href = "/Urun/Sil?id=" + itemID
+                } else {
+                    swal("İptal", "Veri güvende", "info");
+                }
+            });
     }
 </script>
-
