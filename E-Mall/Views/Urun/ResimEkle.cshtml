@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "ResimEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/app-assets/css/ResimEkle.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<form>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 mb-1" style="align: center" "border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px;height: 100%">
+            <h4> RESİM EKLE</h4>
+        </div>
+        <div class="col-xl-12" style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px; height: 100%">
+            <div class="w3-container">
+                <fieldset class="form-group">
+                    <ul id="media-list" class="clearfix">
+                        <li class="myupload">
+                            <span><i class="fa fa-plus" aria-hidden="true"></i><input type="file" click-type="type2" id="picupload" class="picupload" multiple></span>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 mb-1" style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-top: 20px;height: 100%">
+            <label for="name">Resim Adı</label>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
+                    <input class="form-control" type="text" placeholder="Resim Etiket Adını Giriniz."/>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
+                    <a class="btn btn-outline-info" href="#" role="Kaydet">Arama</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+        <script src="~/app-assets/JS/ResimEkle.js"></script>
+}
