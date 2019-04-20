@@ -132,22 +132,26 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategoriController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
+    <Compile Include="Controllers\UrunOzellikleriController.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\KategoriDatabase.cs" />
     <Compile Include="Database\ResimDatabase.cs" />
     <Compile Include="Database\UrunDatabase.cs" />
+    <Compile Include="Database\UrunOzellikleriDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Kategori.cs" />
     <Compile Include="Models\Resim.cs" />
     <Compile Include="Models\Urun.cs" />
+    <Compile Include="Models\UrunOzellikleri.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app-assets\css\bootstrap-4.2.1.css" />
     <Content Include="app-assets\css\ResimEkle.css" />
     <Content Include="app-assets\images\web\fotoyok.jpg" />
+    <Content Include="app-assets\images\web\close.png" />
     <Content Include="app-assets\JS\ResimEkle.js" />
     <Content Include="app-assets\JS\sweetalert.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -231,6 +235,7 @@
     <Content Include="Views\Kategori\Index.cshtml" />
     <Content Include="Views\Kategori\Olustur.cshtml" />
     <Content Include="Views\Urun\ResimEkle.cshtml" />
+    <Content Include="Views\UrunOzellikleri\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-assets\images\kategori\" />

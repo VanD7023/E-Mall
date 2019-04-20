@@ -146,5 +146,10 @@ namespace E_Mall.Database
             reader.Close();
             return urun;
         }
+
+        public override void Update(Urun item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -50,7 +50,15 @@ namespace E_Mall.Database
         {
             return (int)getCommand(sorgu).ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Girilen Sorguya göre veri güncellemesi gerçekleştirir
+        /// </summary>
+        /// <param name="sorgu">Güncellenecek Sorgu</param>
+        /// <returns>Değişikliğe uğrayan satır sayısı</returns>
+        protected int UpdateCommand(string sorgu)
+        {
+            return (int)getCommand(sorgu).ExecuteNonQuery();
+        }
         public abstract List<T> GetAll();
 
         public abstract void Insert(T item);
@@ -61,5 +69,6 @@ namespace E_Mall.Database
 
         public abstract List<T> GetForAdi(string value);
 
+        public abstract void Update(T item);
     }
 }
