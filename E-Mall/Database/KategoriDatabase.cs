@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -19,10 +20,9 @@ namespace E_Mall.Database
 
         public override void Insert(Kategori item)
         {
-            string sorgu = string.Format("insert into {8}({0},{1},{2},{3}) values('{4}','{5}',{6},{7})", _Adi, _Aciklama, _UstID, _ResimID, item.Adi, item.Aciklama, 1, item.ResimID, _Table);
+            string sorgu = string.Format("insert into {8}({0},{1},{2},{3}) values('{4}','{5}',{6},{7})", _Adi, _Aciklama, _UstID, _ResimID, item.Adi, item.Aciklama, item.UstID, item.ResimID, _Table);
             InsertCommand(sorgu);
         }
-
         public override List<Kategori> GetAll()
         {
             string sorgu = string.Format("select * from {0}", _Table);
@@ -41,7 +41,6 @@ namespace E_Mall.Database
             reader.Close();
             return kategoris;
         }
-
         public override void Delete(int ID)
         {
             string sorgu = string.Format("delete from {2} where {0} = {1}", _Id, ID, _Table);
@@ -66,7 +65,6 @@ namespace E_Mall.Database
             item.Resim = GetResim(item.ResimID);
             return item;
         }
-
         public override List<Kategori> GetForAdi(string value)
         {
             List<Kategori> items = new List<Kategori>();
@@ -88,6 +86,12 @@ namespace E_Mall.Database
         public Resim GetResim(int ResimID)
         {
             return new ResimDatabase().GetForID(ResimID);
+        }
+        public override void Update(Kategori item)
+        {
+            string sorgu = string.Format("update {0} set {1}='{2}', {3}='{4}', {5}={6} ,{7}={8} where {9}={10} ", _Table, _Adi, item.Adi, _Aciklama, item.Aciklama, _ResimID, item.ResimID, _UstID, item.UstID, _Id, item.ID);
+            Debug.WriteLine(sorgu);
+            UpdateCommand(sorgu);
         }
     }
 }
