@@ -47,17 +47,20 @@ namespace E_Mall.Database
             return item;
         }
 
+        /// <summary>
+        /// Kullanılmayan
+        /// </summary>
+        /// <param name="item"></param>
         public override void Insert(Resim item)
         {
             string sorgu = string.Format("insert into {0}({1}) values({2})", _Tablo, _Yol, item.Path);
             InsertCommand(sorgu);
         }
 
-        public Resim SaveResim(HttpPostedFileBase file, string url)
+        public Resim Insert(HttpPostedFileBase file, string url)
         {
             string path = HttpContext.Current.Server.MapPath(url);
             file.SaveAs(path);
-            Debug.WriteLine(url);
             SqlCommand command = getCommand(string.Format("insert into {0}({1}) OUTPUT Inserted.ID values('{2}');", _Tablo, _Yol, url));
             return new Resim()
             {
@@ -65,11 +68,21 @@ namespace E_Mall.Database
                 Path = path
             };
         }
-        public Resim UpdateResim(HttpPostedFileBase file, string url, int ID)
+
+        /// <summary>
+        /// Kullanılmayan Fonksiyon
+        /// </summary>
+        /// <param name="item"></param>
+        public override void Update(Resim item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Resim Update(HttpPostedFileBase file, string url, int ID)
         {
             string path = HttpContext.Current.Server.MapPath(url);
             file.SaveAs(path);
-            SqlCommand command = getCommand(string.Format("update {0} set {1}={2} where {3}={4});", _Tablo, _Yol, url, _ID, ID));
+            UpdateCommand(string.Format("update {0} set {1}='{2}' where {3}={4}", _Tablo, _Yol, url, _ID, ID));
             return new Resim()
             {
                 ID = ID,
