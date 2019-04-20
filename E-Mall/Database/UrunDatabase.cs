@@ -27,32 +27,43 @@ namespace E_Mall.Database
         string _Yukseklik { get; } = "Yukseklik";
         string _KategoriID { get; } = "KategoriID";
         string _Ureticiler { get; } = "Ureticiler";
-        string _sil { get; } = "Sil";
+        string _Sil { get; } = "Sil";
         string _Table { get; } = "Urun";
+        private string _Yol { get; } = "Yol";
 
 
-
+        /// <summary>
+        /// Kullanılmayacak
+        /// </summary>
+        /// <param name="item"></param>
         public override void Insert(Urun item)
+        {
+
+        }
+
+        public int InsertUrun(Urun item)
         {
             //string s = $"insert into {_Table}";
             //insert into Urunler
+            Debug.WriteLine("Resimin yolu : " + item.Yol);
             string sorgu = string.Format("insert into {0}({1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16})" +
-                "values ('{17}','{18}','{19}','{20}','{21}',{22},{23},{24},{25},'{26}',{27},{28},{29},{30},{31},'{32}')",
+                "OUTPUT Inserted.ID values ('{17}','{18}','{19}','{20}','{21}',{22},{23},{24},{25},'{26}',{27},{28},{29},{30},{31},'{32}')",
                 _Table, _Adi, _Aciklama, _Barkod, _BaslangicTarihi, _BitisTarihi, _Fiyat, _EskiFiyat, _Maliyet, _KargoFiyat, _KargoDurum, _Agirlik, _Uzunluk, _Genislik, _Yukseklik, _KategoriID, _Ureticiler,
-                item.Adi, item.Aciklama, item.Barkod, item.BaslangicTarih.ToString(), item.BitisTarih.ToString(), item.Fiyat, item.EskiFiyat, item.Maliyet, item.KargoFiyat, item.KargoDurum, item.Agirlik, item.Uzunluk, item.Genislik, item.Yukseklik, item.KategoriID, item.Ureticiler, item.KategoriID, item.Ureticiler);
+                item.Adi, item.Aciklama, item.Barkod, item.BaslangicTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.BitisTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.Fiyat, item.EskiFiyat, item.Maliyet, item.KargoFiyat, item.KargoDurum, item.Agirlik, item.Uzunluk, item.Genislik, item.Yukseklik, item.KategoriID, item.Ureticiler, item.KategoriID, item.Ureticiler);
             Debug.WriteLine(sorgu);
-            InsertCommand(sorgu);
+            return (int)getCommand(sorgu).ExecuteScalar();
+
         }
 
         public override void Delete(int ID)
         {
-            string sorgu = string.Format("delete from {0} where {1} = {2}", _Table, _ID, ID);
+            string sorgu = string.Format("update {0} set  {1}='True' where {2}={3} ", _Table, _Sil, _ID, ID);
             DeleteCommand(sorgu);
         }
 
         public override List<Urun> GetAll()
         {
-            string sorgu = string.Format("select * from {0}", _Table);
+            string sorgu = string.Format("select * from {0} where not ISNULL(Sil,'False')='True'", _Table);
             List<Urun> uruns = new List<Urun>();
             SqlDataReader reader = getReader(sorgu);
             while (reader.Read())
@@ -86,7 +97,7 @@ namespace E_Mall.Database
         public override List<Urun> GetForAdi(string value)
         {
             List<Urun> uruns = new List<Urun>();
-            string sorgu = string.Format("select * from {0} where {1} like '%{2}%'", _Table, _Adi, value );
+            string sorgu = string.Format("select * from {0} where {1} like '%{2}%' and not ISNULL(Sil, 'False') = 'True'", _Table, _Adi, value );
             SqlDataReader reader = getReader(sorgu);
             while (reader.Read())
             {
@@ -149,7 +160,11 @@ namespace E_Mall.Database
 
         public override void Update(Urun item)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("Guncelleme");
+            string sorgu = string.Format("update {0} set {1} = '{2}', {3} = '{4}', {5} = '{6}', {7} = '{8}', {9} = '{10}', {11} = {12}, {13} = {14}, {15} = {16}, {17} = {18}, {19} = '{20}', {21} = {22}, {23} = {24}, {25} = {26}, {27} = {28}, {29} = {30}, {31} = '{32}' where {33} = {34}",
+                _Table, _Adi, item.Adi, _Aciklama, item.Aciklama, _Barkod, item.Barkod, _BaslangicTarihi, item.BaslangicTarih.ToString("yyyy-MM-dd HH:mm:ss"), _BitisTarihi, item.BitisTarih.ToString("yyyy-MM-dd HH:mm:ss"), _Fiyat, item.Fiyat, _EskiFiyat, item.EskiFiyat, _Maliyet, item.Maliyet, _KargoFiyat, item.KargoFiyat, _KargoDurum, item.KargoDurum, _Agirlik, item.Agirlik, _Uzunluk, item.Uzunluk, _Genislik, item.Genislik, _Yukseklik, item.Genislik, _KategoriID, item.KategoriID, _Ureticiler, item.Ureticiler, _ID, item.ID);
+            Debug.WriteLine(sorgu);
+            UpdateCommand(sorgu);
         }
     }
 }

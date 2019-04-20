@@ -31,6 +31,22 @@ namespace E_Mall.Database
         {
             throw new NotImplementedException();
         }
+        public Resim GetForUrunID(int ID)
+        {
+            string sorgu = string.Format("select * from {0} where {1} = {2}", _Tablo, _UrunID, ID);
+            Debug.WriteLine(sorgu);
+            Debug.WriteLine("GetUrunID");
+            SqlDataReader reader = getReader(sorgu);
+            if (!reader.Read())
+                return null;
+            Resim item = new Resim()
+            {
+                ID = (int)reader[_ID],
+                Path = reader[_Yol].ToString()
+            };
+            reader.Close();
+            return item;
+        }
 
         public override Resim GetForID(int ID)
         {
@@ -77,7 +93,24 @@ namespace E_Mall.Database
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Urunler için kullanılan Resim Ekleme
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="url"></param>
+        /// <param name="UrunID"></param>
+        /// <returns></returns>
+        public Resim Insert(HttpPostedFileBase file, string url, int UrunID)
+        {
+            string path = HttpContext.Current.Server.MapPath(url);
+            file.SaveAs(path);
+            SqlCommand command = getCommand(string.Format("insert into {0}({1},{3}) OUTPUT Inserted.ID values('{2}',{4});", _Tablo, _Yol, url,_UrunID,UrunID));
+            return new Resim()
+            {
+                ID = (int)command.ExecuteScalar(),
+                Path = path
+            };
+        }
         public Resim Update(HttpPostedFileBase file, string url, int ID)
         {
             string path = HttpContext.Current.Server.MapPath(url);

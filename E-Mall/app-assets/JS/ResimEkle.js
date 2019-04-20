@@ -1,13 +1,14 @@
 var dosyalar = [];
 var imageLoader = document.getElementById('picupload');
 imageLoader.addEventListener('change', ImageUpload, false);
-function ImageUpload(){
+function ImageUpload() {
+    dosyalar = [];
   var files = event.target.files;
   var output = document.getElementById("media-list");
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     dosyalar.push($(this).get(0).files[i].name);
-    if (file.type.match('image')) {
+      if (file.type.match('image')) {
       var picReader = new FileReader();
       picReader.fileName = file.name;
       picReader.addEventListener("load", function(event) {

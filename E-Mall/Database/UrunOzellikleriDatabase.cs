@@ -18,7 +18,6 @@ namespace E_Mall.Database
         public override void Delete(int ID)
         {
             string sorgu = string.Format("update {0} set  {1}='True' where {2}={3} ", _Table, _Sil, _Id, ID);
-            Debug.WriteLine(sorgu);
             DeleteCommand(sorgu);
         }
 

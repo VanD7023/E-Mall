@@ -25,5 +25,6 @@ namespace E_Mall.Models
         public int KategoriID { set; get; }
         public string Ureticiler { set; get; }
         public bool sil { set; get; }
+        public string Yol { set; get; }
     }
 }

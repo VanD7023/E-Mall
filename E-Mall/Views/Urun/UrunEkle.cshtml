@@ -1,73 +1,138 @@
 ﻿@model E_Mall.Models.Urun
 @{
-    ViewBag.Title = "UrunEkle";
+    ViewBag.Title = Model == null ? "Olustur" : "Güncelle";
 }
-<div class="row">
-    <div class="col-xl-12" style="align: center">
-        <h4> ÜRÜN EKLE</h4>
-    </div>
-    <form method="post" enctype="multipart/form-data" action="Olustur">
+@section Styles {
+    <link href="~/app-assets/css/ResimEkle.css" rel="stylesheet" type="text/css" />
+}
+<form id="regForm" method="post" enctype="multipart/form-data" action=@(Model==null ? "/Urun/Ekle" : "/Urun/Guncelle")>
+    @Html.HiddenFor(x => x.ID)
+    <h1>ÜRÜNLER</h1>
+    <!-- One "tab" for each step in the form: -->
+    <div class="tab">
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
-                <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px">
-                    <fieldset class="form-group">
-                        <label for="name">Ürün Adı</label>
-                        @Html.TextBoxFor(x => x.Adi, new { @class = "form-control", @placeholder = "Ürünün Adını Giriniz", required = "required" })
-                        <label for="name">Açıklama</label>
-                        @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control", @placeholder = "Ürüne Ait Kısa Açıklama Giriniz", required = "required" })
-                        <label for="name">SKU</label>
-                        @Html.TextBoxFor(x => x.Barkod, new { @class = "form-control", @placeholder = "Ürünün SKU Kodunu Giriniz", required = "required" })
-                        <label for="name">Etiket</label>
-                        @Html.TextBoxFor(x => x.Adi, new { @class = "form-control", @placeholder = "Ürünün Etiketini Giriniz", required = "required" })
-                        <label for="name">Başlangıç Tarihi</label>
-                        @Html.TextBoxFor(x => x.BaslangicTarih, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-                        <label for="name">Bitiş Tarihi</label>
-                        @Html.TextBoxFor(x => x.BitisTarih, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-                    </fieldset>
-                </div>
+            <div class="col-xl-12" style="align: center">
+                <h4> ÜRÜN EKLE</h4>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
-                <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px;height: 100%">
-                    <fieldset class="form-group">
-                        <label for="name">Ağırlık (kg)</label>
-                        @Html.TextBoxFor(x => x.Agirlik, new { @class = "form-control", @placeholder = "Ürünün Ağırlığını Giriniz", required = "required" })
-                        <label for="name">Uzunluk (m)</label>
-                        @Html.TextBoxFor(x => x.Uzunluk, new { @class = "form-control", @placeholder = "Ürünün Uzunluğunu Giriniz", required = "required" })
-                        <label for="name">Genişlik (m)</label>
-                        @Html.TextBoxFor(x => x.Genislik, new { @class = "form-control", @placeholder = "Ürünün Genişliğini Giriniz", required = "required" })
-                        <label for="name">Yükseklik (m)</label>
-                        @Html.TextBoxFor(x => x.Yukseklik, new { @class = "form-control", @placeholder = "Ürünün Yüksekliğini Giriniz", required = "required" })
-                    </fieldset>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
+                    <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px">
+                        <fieldset class="form-group">
+                            <label for="name">Ürün Adı</label>
+                            @Html.TextBoxFor(x => x.Adi, new { @class = "form-control", @placeholder = "Ürünün Adını Giriniz", required = "required" })
+                            <label for="name">Açıklama</label>
+                            @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control", @placeholder = "Ürüne Ait Kısa Açıklama Giriniz", required = "required" })
+                            <label for="name">SKU</label>
+                            @Html.TextBoxFor(x => x.Barkod, new { @class = "form-control", @placeholder = "Ürünün SKU Kodunu Giriniz", required = "required" })
+                            <label for="name">Etiket</label>
+                            @Html.TextBoxFor(x => x.Adi, new { @class = "form-control", @placeholder = "Ürünün Etiketini Giriniz", required = "required" })
+                            <label for="name">Başlangıç Tarihi</label>
+                            @Html.TextBoxFor(x => x.BaslangicTarih, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            <label for="name">Bitiş Tarihi</label>
+                            @Html.TextBoxFor(x => x.BitisTarih, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        </fieldset>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-1" style="margin-top: 20px;">
-                <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px;">
-                    <fieldset class="form-group">
-                        <label for="name">Fiyat</label>
-                        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control", @placeholder = "Ürünün Fiyatını Giriniz", required = "required" })
-                        <label for="name">Eski Fiyat</label>
-                        @Html.TextBoxFor(x => x.EskiFiyat, new { @class = "form-control", @placeholder = "Ürünün Eski Fiyatını Giriniz", required = "required" })
-                        <label for="name">Maliyet</label>
-                        @Html.TextBoxFor(x => x.Maliyet, new { @class = "form-control", @placeholder = "Ürünün Maliyetini Giriniz", required = "required" })
-                    </fieldset>
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1">
+                    <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px;height: 100%">
+                        <fieldset class="form-group">
+                            <label for="name">Ağırlık (kg)</label>
+                            @Html.TextBoxFor(x => x.Agirlik, new { @class = "form-control", @placeholder = "Ürünün Ağırlığını Giriniz", required = "required" })
+                            <label for="name">Uzunluk (m)</label>
+                            @Html.TextBoxFor(x => x.Uzunluk, new { @class = "form-control", @placeholder = "Ürünün Uzunluğunu Giriniz", required = "required" })
+                            <label for="name">Genişlik (m)</label>
+                            @Html.TextBoxFor(x => x.Genislik, new { @class = "form-control", @placeholder = "Ürünün Genişliğini Giriniz", required = "required" })
+                            <label for="name">Yükseklik (m)</label>
+                            @Html.TextBoxFor(x => x.Yukseklik, new { @class = "form-control", @placeholder = "Ürünün Yüksekliğini Giriniz", required = "required" })
+                        </fieldset>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 mb-1" style="margin-top: 20px;">
-                <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px; height: 100%;">
-                    <fieldset class="form-group">
-                        <label for="name">Kategoriler</label>
-                        @Html.TextBoxFor(x => x.KategoriID, new { @class = "form-control", @placeholder = "Ürünün Kategorisini Giriniz", required = "required" })
-                        <label for="name">Üreticiler</label>
-                        @Html.TextBoxFor(x => x.Ureticiler, new { @class = "form-control", @placeholder = "Ürünün Üreticisini Giriniz", required = "required" })
-                    </fieldset>
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1" style="margin-top: 20px;">
+                    <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px;">
+                        <fieldset class="form-group">
+                            <label for="name">Fiyat</label>
+                            @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control", @placeholder = "Ürünün Fiyatını Giriniz", required = "required" })
+                            <label for="name">Eski Fiyat</label>
+                            @Html.TextBoxFor(x => x.EskiFiyat, new { @class = "form-control", @placeholder = "Ürünün Eski Fiyatını Giriniz", required = "required" })
+                            <label for="name">Maliyet</label>
+                            @Html.TextBoxFor(x => x.Maliyet, new { @class = "form-control", @placeholder = "Ürünün Maliyetini Giriniz", required = "required" })
+                        </fieldset>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-12" style="margin-top: 20px;">
-                <fieldset class="form-group-validate">
-                    <button class="btn btn-success" name="submit">Kaydet</button>
-                </fieldset>
+                <div class="col-xl-6 col-lg-6 col-md-6 mb-1" style="margin-top: 20px;">
+                    <div style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px; height: 100%;">
+                        <fieldset class="form-group">
+
+                            <label for="name">Kategoriler</label>
+                            @Html.DropDownListFor(x => x.KategoriID, (SelectList)ViewBag.kategoris, "-Seçiniz-", new { @class = "form-control", required = "required" })
+                            <label for="name">Üreticiler</label>
+                            @Html.TextBoxFor(x => x.Ureticiler, new { @class = "form-control", @placeholder = "Ürünün Üreticisini Giriniz", required = "required" })
+                            <label for="name">Nitelik Adı</label>
+                            @Html.TextBoxFor(x => x.Adi, new { @class = "form-control", @placeholder = "Ürünün Adını Giriniz", required = "required" })
+                            @*<label for="name">Renk Seçenekleri</label>*@
+                            @*Html.DropDownListFor(x => x.Adi, new { @class = "form-control", @placeholder = "-Seçiniz-", required = "required" })*@
+                        </fieldset>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
-</div>
+    </div>
+    <div class="tab">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1" style="align: center; padding: 20px; border-radius: 20px; margin-right: 20px;height: 100%">
+                <h4> RESİM EKLE</h4>
+            </div>
+            <div class="col-xl-12" style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px; height: 100%">
+                <div class="w3-container">
+                    <fieldset class="form-group" style="border: 0px;">
+                        <ul id="media-list" class="clearfix">
+                            <li class="myupload">
+                                <span>
+                                    <i class="fa fa-plus" aria-hidden="true">+</i>
+                                    <input type="file" name="files" click-type="type2" id="picupload" class="picupload" multiple>
+                                </span>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1" style= align: center; padding: 20px; border-radius: 20px; margin-right: 20px;height: 100%>
+                <h4> BENZER ÜRÜNLER</h4>
+            </div>
+            <div class="col-xl-12" style="border: 1px solid #000000; padding: 20px; border-radius: 20px; margin-right: 20px; height: 100%">
+                <div style="border: 0px solid #000000; padding: 0px; border-radius: 20px; margin-right: 20px">
+                    <fieldset class="form-group"></fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="overflow:auto; margin:20px; ">
+        <div style="float:right;">
+            <button class="btn btn-outline-info" type="button" id="prevBtn" onclick="nextPrev(-1)">Geri</button>
+            <button class="btn btn-outline-success" type="button" id="nextBtn" onclick="nextPrev(1)">İleri</button>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+    </div>
+</form>
+
+
+<!--<script src="~/js/bootstrap-4.2.1.js"></script>
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/popper.min.js"></script>-->
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/app-assets/JS/ResimEkle.js"></script>
+<script src="~/app-assets/JS/ResimScript.js"></script>
 

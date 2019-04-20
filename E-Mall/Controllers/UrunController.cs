@@ -3,13 +3,14 @@ using E_Mall.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 namespace E_Mall.Controllers
 {
     public class UrunController : Controller
@@ -21,48 +22,70 @@ namespace E_Mall.Controllers
         }
         public ActionResult UrunYonetim()
         {
-            return View(database.GetAll());
+            ResimDatabase resimdata = new ResimDatabase();
+            List<Urun> uruns = database.GetAll();
+            foreach(Urun item in uruns){
+                Resim resim = resimdata.GetForUrunID(item.ID);
+                item.Yol = resim != null ? resim.Path : "/app-assets/images/web/fotoyok.jpg";
+                Debug.WriteLine(item.Yol);
+            }
+            return View(uruns);
         }
         public ActionResult UrunEkle()
         {
+            List<Kategori> kategoris = new KategoriDatabase().GetAll();
+            ViewBag.kategoris = new SelectList(kategoris, "ID", "Adi");
             return View();
         }
-        public ActionResult ResimEkle()
+        [HttpPost] 
+        public ActionResult Ekle(Urun item,HttpPostedFileBase[] files)
         {
-            return View();
+            int ID = database.InsertUrun(item);
+            ResimDatabase resimDatabase = new ResimDatabase();
+            foreach(var item2 in files)
+            {
+                string path = string.Format("/app-assets/images/urunler/{0}", (DateTime.Now.Ticks + Path.GetExtension(item2.FileName)));
+                resimDatabase.Insert(item2, path,ID);
+            }
+
+            return RedirectToAction("UrunYonetim");
         }
-        public ActionResult Olustur(Urun item)
+        [HttpPost]
+        public ActionResult Guncelle(Urun item, HttpPostedFileBase[] files)
         {
-            database.Insert(item);
-            return View("UrunYonetim");
+            database.Update(item);
+            return RedirectToAction("UrunYonetim");
         }
+
         public ActionResult Sil(int ID)
         {
             database.Delete(ID);
             return RedirectToAction("UrunYonetim");
         }
+
         public ActionResult Arama(string aranan)
         {
-            return View("UrunYonetim", string.IsNullOrEmpty(aranan) ? database.GetAll() : database.GetForAdi(aranan));
+            ResimDatabase resimdata = new ResimDatabase();
+            List<Urun> uruns = string.IsNullOrEmpty(aranan) ? database.GetAll() : database.GetForAdi(aranan);
+            foreach (Urun item in uruns)
+            {
+                Resim resim = resimdata.GetForUrunID(item.ID);
+                item.Yol = resim != null ? resim.Path : "/app-assets/images/web/fotoyok.jpg";
+                Debug.WriteLine(item.Yol);
+            }
+            return View("UrunYonetim",uruns);
         }
+
         public ActionResult Guncelle(int ID)
         {
             Urun urun = database.GetForID(ID);
-            ViewBag.Adi = urun.Adi;
-            ViewBag.Aciklama = urun.Aciklama;
-            ViewBag.Barkod = urun.Barkod;
-            ViewBag.BaslangicTarih = urun.BaslangicTarih;
-            ViewBag.BitisTarih = urun.BitisTarih;
-            ViewBag.Fiyat = urun.Fiyat;
-            ViewBag.EskiFiyat = urun.EskiFiyat;
-            ViewBag.Maliyet = urun.Maliyet;
-            ViewBag.KargoFiyat = urun.KargoFiyat;
-            ViewBag.KargoDurum = urun.Agirlik;
-            ViewBag.Uzunluk = urun.Uzunluk;
-            ViewBag.Genislik = urun.Genislik;
-            ViewBag.Yukseklik = urun.Yukseklik;
-            ViewBag.Ureticiler = urun.Ureticiler;
+            List<Kategori> kategoris = new KategoriDatabase().GetAll();
+            ViewBag.kategoris = new SelectList(kategoris, "ID", "Adi");
             return View("UrunEkle", urun);
+        }
+        public ActionResult Olustur()
+        {
+            return View();
         }
     }
 }

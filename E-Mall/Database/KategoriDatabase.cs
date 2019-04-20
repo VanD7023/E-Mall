@@ -25,7 +25,7 @@ namespace E_Mall.Database
         }
         public override List<Kategori> GetAll()
         {
-            string sorgu = string.Format("select * from {0}", _Table);
+            string sorgu = string.Format("select * from {0} where not ISNULL(Sil,'False')='True'", _Table);
             List<Kategori> kategoris = new List<Kategori>();
             SqlDataReader reader = getReader(sorgu);
             while (reader.Read())
@@ -43,7 +43,7 @@ namespace E_Mall.Database
         }
         public override void Delete(int ID)
         {
-            string sorgu = string.Format("delete from {2} where {0} = {1}", _Id, ID, _Table);
+            string sorgu = string.Format("update {0} set  {1}='True' where {2}={3} ", _Table, _Sil, _Id, ID);
             DeleteCommand(sorgu);
         }
         public override Kategori GetForID(int ID)
@@ -68,7 +68,7 @@ namespace E_Mall.Database
         public override List<Kategori> GetForAdi(string value)
         {
             List<Kategori> items = new List<Kategori>();
-            string sorgu = string.Format("select * from {2} where {0} like '%{1}%'", _Adi, value, _Table);
+            string sorgu = string.Format("select * from {2} where {0} like '%{1}%' and not ISNULL(Sil,'False')='True'", _Adi, value, _Table);
             SqlDataReader reader = getReader(sorgu);
             while (reader.Read())
                 items.Add(new Kategori()
