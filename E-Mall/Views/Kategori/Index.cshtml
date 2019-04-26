@@ -45,7 +45,7 @@
                                         <td>2</td>
                                         <td>3</td>
                                         <td>  <a class="btn btn-outline-secondary" href=@Url.Action("Guncele","Kategori",new {ID =item.ID }) role="button">Düzenle</a></td>
-                                        <td>  <a class="btn btn-outline-danger" href="#" onclick="deleteuser('@item.ID')" role="button">Sil</a></td>
+                                        <td>  <a class="btn btn-outline-danger" href="#" onclick="deleteKategori('@item.ID')" role="button">Sil</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -57,7 +57,7 @@
     </div>
 </div>
 <script>
-    function deleteuser(kategoriID) {
+    function deleteKategori(kategoriID) {
         swal({
             title: "Emin misiniz?",
             text: "Bu işlem geri alınamaz!",

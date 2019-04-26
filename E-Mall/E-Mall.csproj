@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndirimController.cs" />
     <Compile Include="Controllers\KategoriController.cs" />
     <Compile Include="Controllers\MusteriController.cs" />
     <Compile Include="Controllers\SatisController.cs" />
@@ -137,12 +138,14 @@
     <Compile Include="Controllers\UrunOzellikleriController.cs" />
     <Compile Include="Database\AdresDatabase.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\IndirimDatabase.cs" />
     <Compile Include="Database\KategoriDatabase.cs" />
     <Compile Include="Database\MusteriDatabase.cs" />
     <Compile Include="Database\ResimDatabase.cs" />
     <Compile Include="Database\SatisDatabase.cs" />
     <Compile Include="Database\SatisDetayDatabase.cs" />
     <Compile Include="Database\SatisDurumDatabase.cs" />
+    <Compile Include="Models\Indirim.cs" />
     <Compile Include="Models\objectExtensions.cs" />
     <Compile Include="Database\UrunDatabase.cs" />
     <Compile Include="Database\UrunOzellikleriDatabase.cs" />
@@ -254,6 +257,8 @@
     <Content Include="Views\Satis\Emirler.cshtml" />
     <Content Include="Views\Satis\EmirDetay.cshtml" />
     <Content Include="Views\Musteri\Listele.cshtml" />
+    <Content Include="Views\Indirim\Indirimler.cshtml" />
+    <Content Include="Views\Indirim\Ekle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-assets\images\kategori\" />
