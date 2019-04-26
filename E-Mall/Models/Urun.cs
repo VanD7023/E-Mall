@@ -13,11 +13,12 @@ namespace E_Mall.Models
         public string Barkod { set; get; }
         public DateTime BaslangicTarih { set; get; }
         public DateTime BitisTarih { set; get; }
+        public DateTime EklenmeTarih { set; get; }
         public float Fiyat { set; get; }
         public float EskiFiyat { set; get; }
         public float Maliyet { set; get; }
         public float KargoFiyat { set; get; }
-        public bool KargoDurum { set; get; }
+        public string KargoDurum { set; get; }
         public float Agirlik { set; get; }
         public float Uzunluk { set; get; }
         public float Genislik { set; get; }

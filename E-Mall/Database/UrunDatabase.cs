@@ -29,6 +29,7 @@ namespace E_Mall.Database
         string _Ureticiler { get; } = "Ureticiler";
         string _Sil { get; } = "Sil";
         string _Table { get; } = "Urun";
+        string _EklenmeTarih { get; } = "EklenmeTarih";
         private string _Yol { get; } = "Yol";
 
 
@@ -46,10 +47,10 @@ namespace E_Mall.Database
             //string s = $"insert into {_Table}";
             //insert into Urunler
             Debug.WriteLine("Resimin yolu : " + item.Yol);
-            string sorgu = string.Format("insert into {0}({1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16})" +
-                "OUTPUT Inserted.ID values ('{17}','{18}','{19}','{20}','{21}',{22},{23},{24},{25},'{26}',{27},{28},{29},{30},{31},'{32}')",
+            string sorgu = string.Format("insert into {0}({1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{33})" +
+                "OUTPUT Inserted.ID values ('{17}','{18}','{19}','{20}','{21}',{22},{23},{24},{25},'{26}',{27},{28},{29},{30},{31},'{32}','{34}')",
                 _Table, _Adi, _Aciklama, _Barkod, _BaslangicTarihi, _BitisTarihi, _Fiyat, _EskiFiyat, _Maliyet, _KargoFiyat, _KargoDurum, _Agirlik, _Uzunluk, _Genislik, _Yukseklik, _KategoriID, _Ureticiler,
-                item.Adi, item.Aciklama, item.Barkod, item.BaslangicTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.BitisTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.Fiyat, item.EskiFiyat, item.Maliyet, item.KargoFiyat, item.KargoDurum, item.Agirlik, item.Uzunluk, item.Genislik, item.Yukseklik, item.KategoriID, item.Ureticiler, item.KategoriID, item.Ureticiler);
+                item.Adi, item.Aciklama, item.Barkod, item.BaslangicTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.BitisTarih.ToString("yyyy-MM-dd HH:mm:ss"), item.Fiyat, item.EskiFiyat, item.Maliyet, item.KargoFiyat, item.KargoDurum, item.Agirlik, item.Uzunluk, item.Genislik, item.Yukseklik, item.KategoriID, item.Ureticiler, item.KategoriID, item.Ureticiler,_EklenmeTarih,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             Debug.WriteLine(sorgu);
             return (int)getCommand(sorgu).ExecuteScalar();
 
@@ -81,7 +82,7 @@ namespace E_Mall.Database
                     EskiFiyat = float.Parse(reader[_EskiFiyat].ToString()),
                     Maliyet = float.Parse(reader[_Maliyet].ToString()),
                     KargoFiyat = float.Parse(reader[_KargoFiyat].ToString()),
-                    KargoDurum = (bool)reader[_KargoDurum],
+                    KargoDurum = reader[_KargoDurum].ToString(),
                     Agirlik = float.Parse(reader[_Agirlik].ToString()),
                     Uzunluk = float.Parse(reader[_Uzunluk].ToString()),
                     Genislik = float.Parse(reader[_Genislik].ToString()),
@@ -113,7 +114,7 @@ namespace E_Mall.Database
                     EskiFiyat = float.Parse(reader[_EskiFiyat].ToString()),
                     Maliyet = float.Parse(reader[_Maliyet].ToString()),
                     KargoFiyat = float.Parse(reader[_KargoFiyat].ToString()),
-                    KargoDurum = (bool)reader[_KargoDurum],
+                    KargoDurum = reader[_KargoDurum].ToString(),
                     Agirlik = float.Parse(reader[_Agirlik].ToString()),
                     Uzunluk = float.Parse(reader[_Uzunluk].ToString()),
                     Genislik = float.Parse(reader[_Genislik].ToString()),
@@ -145,7 +146,7 @@ namespace E_Mall.Database
                 EskiFiyat = float.Parse(reader[_EskiFiyat].ToString()),
                 Maliyet = float.Parse(reader[_Maliyet].ToString()),
                 KargoFiyat = float.Parse(reader[_KargoFiyat].ToString()),
-                KargoDurum = (bool)reader[_KargoDurum],
+                KargoDurum = reader[_KargoDurum].ToString(),
                 Agirlik = float.Parse(reader[_Agirlik].ToString()),
                 Uzunluk = float.Parse(reader[_Uzunluk].ToString()),
                 Genislik = float.Parse(reader[_Genislik].ToString()),
@@ -156,6 +157,40 @@ namespace E_Mall.Database
             };
             reader.Close();
             return urun;
+        }
+        public List<Urun> GetForUrunID(int ID)
+        {
+            string sorgu = string.Format("select * from {0} where {1} = {2}", _Table, _ID, ID);
+            SqlDataReader reader = getReader(sorgu);
+            if (reader.Read())
+                return new List<Urun>();
+            List<Urun> uruns = new List<Urun>();
+            while (reader.Read())
+            {
+                uruns.Add(new Urun()
+                {
+                    ID = (int)reader[_ID],
+                    Adi = reader[_Adi].ToString(),
+                    Aciklama = reader[_Aciklama].ToString(),
+                    Barkod = reader[_Barkod].ToString(),
+                    BaslangicTarih = (DateTime)reader[_BaslangicTarihi],
+                    BitisTarih = (DateTime)reader[_BitisTarihi],
+                    Fiyat = float.Parse(reader[_Fiyat].ToString()),
+                    EskiFiyat = float.Parse(reader[_EskiFiyat].ToString()),
+                    Maliyet = float.Parse(reader[_Maliyet].ToString()),
+                    KargoFiyat = float.Parse(reader[_KargoFiyat].ToString()),
+                    KargoDurum = reader[_KargoDurum].ToString(),
+                    Agirlik = float.Parse(reader[_Agirlik].ToString()),
+                    Uzunluk = float.Parse(reader[_Uzunluk].ToString()),
+                    Genislik = float.Parse(reader[_Genislik].ToString()),
+                    Yukseklik = float.Parse(reader[_Yukseklik].ToString()),
+                    KategoriID = (int)reader[_KategoriID],
+                    Ureticiler = reader[_Ureticiler].ToString(),
+                    sil = false
+                });
+            }
+            reader.Close();
+            return uruns;
         }
 
         public override void Update(Urun item)

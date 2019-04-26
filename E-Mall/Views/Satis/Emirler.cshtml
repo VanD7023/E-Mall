@@ -1,0 +1,70 @@
+﻿@using E_Mall.Models;
+@model SatisArama
+@{
+    /**/
+
+    ViewBag.Title = "Emirler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<form id="Arama-Form" action="/Satis/Arama" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-xl-12">
+            <h4> EMİRLER </h4>
+        </div>
+        <div class="col-xl-12">
+            <p align="right">
+                <a class="btn btn-outline-info" href=@Url.Action("Emirler","Satis") role="button">Yenile</a>
+            </p>
+        </div>
+        <div class="col-xl-12 " style="border: 1px solid #000000; padding: 20px; border-radius: 10px; margin-right: 20px">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name">Müsteri Adi</label>
+                    @Html.TextBoxFor(x => x.MusteriAdi, new { @class = "form-control", @placeholder = "Müsteri Adını Giriniz" })
+                </div>
+                <div class="col-md-4">
+                    <label for="name">Müsteri Mail</label>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Müsteri Mail Giriniz" })
+                </div>
+                <div class="col-md-4">
+                    <label for="name">Sipariş Durum</label>
+                    @Html.DropDownListFor(x => x.SatisDurum, (SelectList)ViewBag.SatisDurums, "-Seçiniz-", new { @class = "form-control" })
+                </div>
+                <div class="col-md-12" style="margin-top : 30px;">
+                    <p align="center">
+                        <button class="btn btn-success">Arama</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 mb-1" align="center" style=" padding: 20px">
+        <table class="table table-striped table-bordered zero-configuration" id="datatable">
+            <thead>
+                <tr>
+                    <th>Sipariş No</th>
+                    <th>Müşteri Adı</th>
+                    <th>Kargo Durumu</th>
+                    <th>Müşteri E-Mail</th>
+                    <th>Toplam</th>
+                    <th>Görüntüle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Satis item in (List<Satis>)ViewBag.satislar)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Kullanici.Adi</td>
+                        <td>@(item.KargoDurum ? "Ucretli Kargo" : "Ucretsiz Kargo")</td>
+                        <td>@item.Kullanici.Email</td>
+                        <td>@item.Toplam</td>
+                        <td><a class="btn btn-outline-info" href=@Url.Action("Guncelle","Satis", new { ID = item.ID }) role="button">Görüntüle</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

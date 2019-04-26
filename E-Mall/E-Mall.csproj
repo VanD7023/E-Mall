@@ -131,18 +131,32 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategoriController.cs" />
+    <Compile Include="Controllers\MusteriController.cs" />
+    <Compile Include="Controllers\SatisController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
     <Compile Include="Controllers\UrunOzellikleriController.cs" />
+    <Compile Include="Database\AdresDatabase.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\KategoriDatabase.cs" />
+    <Compile Include="Database\MusteriDatabase.cs" />
     <Compile Include="Database\ResimDatabase.cs" />
+    <Compile Include="Database\SatisDatabase.cs" />
+    <Compile Include="Database\SatisDetayDatabase.cs" />
+    <Compile Include="Database\SatisDurumDatabase.cs" />
+    <Compile Include="Models\objectExtensions.cs" />
     <Compile Include="Database\UrunDatabase.cs" />
     <Compile Include="Database\UrunOzellikleriDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Adres.cs" />
     <Compile Include="Models\Kategori.cs" />
+    <Compile Include="Models\Musteri.cs" />
     <Compile Include="Models\Resim.cs" />
+    <Compile Include="Models\Satis.cs" />
+    <Compile Include="Models\SatisArama.cs" />
+    <Compile Include="Models\SatisDetay.cs" />
+    <Compile Include="Models\SatisDurum.cs" />
     <Compile Include="Models\Urun.cs" />
     <Compile Include="Models\UrunOzellikleri.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +251,9 @@
     <Content Include="Views\Kategori\Olustur.cshtml" />
     <Content Include="Views\Urun\ResimEkle.cshtml" />
     <Content Include="Views\UrunOzellikleri\Index.cshtml" />
+    <Content Include="Views\Satis\Emirler.cshtml" />
+    <Content Include="Views\Satis\EmirDetay.cshtml" />
+    <Content Include="Views\Musteri\Listele.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-assets\images\kategori\" />
