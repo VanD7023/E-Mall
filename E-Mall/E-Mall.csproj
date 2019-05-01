@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndirimController.cs" />
     <Compile Include="Controllers\KategoriController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MusteriController.cs" />
     <Compile Include="Controllers\SatisController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
@@ -140,12 +141,14 @@
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\IndirimDatabase.cs" />
     <Compile Include="Database\KategoriDatabase.cs" />
+    <Compile Include="Database\LoginDatabase.cs" />
     <Compile Include="Database\MusteriDatabase.cs" />
     <Compile Include="Database\ResimDatabase.cs" />
     <Compile Include="Database\SatisDatabase.cs" />
     <Compile Include="Database\SatisDetayDatabase.cs" />
     <Compile Include="Database\SatisDurumDatabase.cs" />
     <Compile Include="Models\Indirim.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\objectExtensions.cs" />
     <Compile Include="Database\UrunDatabase.cs" />
     <Compile Include="Database\UrunOzellikleriDatabase.cs" />
@@ -166,7 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app-assets\css\bootstrap-4.2.1.css" />
+    <Content Include="app-assets\css\Login-css\font-awesome.css" />
+    <Content Include="app-assets\css\Login-css\style.css" />
     <Content Include="app-assets\css\ResimEkle.css" />
+    <Content Include="app-assets\css\Login-resim\login.jpg" />
     <Content Include="app-assets\images\web\fotoyok.jpg" />
     <Content Include="app-assets\images\web\close.png" />
     <Content Include="app-assets\JS\ResimEkle.js" />
@@ -203,6 +209,11 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="app-assets\font\Login-font\fontawesome-webfont.eot" />
+    <Content Include="app-assets\font\Login-font\fontawesome-webfont.ttf" />
+    <Content Include="app-assets\font\Login-font\fontawesome-webfont.woff" />
+    <Content Include="app-assets\font\Login-font\fontawesome-webfont.woff2" />
+    <Content Include="app-assets\font\Login-font\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -259,6 +270,8 @@
     <Content Include="Views\Musteri\Listele.cshtml" />
     <Content Include="Views\Indirim\Indirimler.cshtml" />
     <Content Include="Views\Indirim\Ekle.cshtml" />
+    <Content Include="Views\Shared\_AdminLoginPage.cshtml" />
+    <Content Include="Views\Login\Oturum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-assets\images\kategori\" />

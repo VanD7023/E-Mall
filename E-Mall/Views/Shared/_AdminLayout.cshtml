@@ -1,4 +1,12 @@
 ﻿<!DOCTYPE html>
+@using E_Mall.Models
+@{
+    Login currentUser = HttpContext.Current.Session["Kullanici"] as Login;
+    if (currentUser == null)
+    {
+        Response.Redirect("/Login/Oturum");
+    }
+}
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,6 +17,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Layout/js")
     @RenderSection("Styles", false)
+
 </head>
 <body>
     <div class="container body-content">
@@ -65,7 +74,7 @@
             </div>
             <form class="form-inline">
                 <label title="Kullanıcı Adı"></label>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Çıkış</button>
+                <a class="btn btn-outline-success my-2 my-sm-0" href="/Login/Logout" role="button">Çıkış</a>
             </form>
         </nav>
         @RenderBody()

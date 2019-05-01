@@ -1,0 +1,80 @@
+﻿@using E_Mall.Models
+@model Login
+@{
+    Layout = null;
+    Login currentUser = HttpContext.Current.Session["Kullanici"] as Login;
+    if (currentUser != null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Admin Login Page</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/app-assets/css/Login-css/font-awesome.css" rel="stylesheet" />
+    <link href="~/app-assets/css/Login-css/style.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="keywords" content="Admin Login Page">
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--fonts-->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+    <!--//fonts-->
+</head>
+
+<body>
+    <h1>Login Form </h1>
+    <div class="clear-loading spinner">
+        <span></span>
+    </div>
+    <div class="w3ls-login box box--big">
+        <!-- form starts here -->
+        <form  id="LoginForm" method="post" action="Dogrulama" enctype="multipart/form-data">
+            <div class="agile-field-txt">
+                <label><i class="fa fa-user" aria-hidden="true"></i> Kullanıcı Adı </label>
+                @Html.TextBoxFor(x => x.KullaniciAdi, new { @class = "form-control", @placeholder = "Kullanıcı Adını Giriniz", required = "required" })
+            </div>
+            <div class="agile-field-txt">
+                <label><i class="fa fa-unlock-alt" aria-hidden="true"></i> Şifre </label>
+                @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control", @placeholder = "Şifrenizi Giriniz", required = "required" })
+                <div class="agile_label">
+                    <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                    <label class="check" for="check3">Şifreyi Göster</label>
+                </div>
+            </div>
+            <!-- script for show password -->
+            <script> 
+				function myFunction() {
+					var x = document.getElementById("myInput");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+            </script>
+            <!-- //end script -->
+            <input type="submit" value="LOGIN">
+        </form>
+    </div>
+    <!-- //form ends here -->
+    <!--copyright-->
+    <div class="copy-wthree">
+        <p></p>
+    </div>
+    <!--//copyright-->
+</body>
+</html>
+
